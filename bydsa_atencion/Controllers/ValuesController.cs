@@ -17,8 +17,8 @@ namespace bydsa_atencion.Controllers
 
             dataDataContext db = new dataDataContext();
 
-            usuario o_usuario = new usuario();
-            var usuarios = (from p in db.usuarios select p).ToList();
+            Usuario o_usuario = new Usuario();
+            var usuarios = (from p in db.Usuario select p).ToList();
 
             return usuarios;
 
