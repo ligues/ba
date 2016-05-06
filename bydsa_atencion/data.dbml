@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="bydsa_atencion" Class="dataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=IK-PC\SQLEXPRESS;Initial Catalog=bydsa_atencion;Persist Security Info=True;User ID=admin" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="bydsa_atencionConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Categoria" Member="Categoria">
+    <Type Name="Categoria">
+      <Column Name="categoriaId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="categoria_descripcion" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Association Name="Categoria_Clasificacion" Member="Clasificacion" ThisKey="categoriaId" OtherKey="categoriaId" Type="Clasificacion" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UsuarioSucursal" Member="UsuarioSucursal">
+    <Type Name="UsuarioSucursal">
+      <Column Name="usuariosucursalId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="usuarioId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sucursalId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Sucursal_UsuarioSucursal" Member="Sucursal" ThisKey="sucursalId" OtherKey="sucursalId" Type="Sucursal" IsForeignKey="true" />
+      <Association Name="Usuario_UsuarioSucursal" Member="Usuario" ThisKey="usuarioId" OtherKey="usuarioId" Type="Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Clasificacion" Member="Clasificacion">
+    <Type Name="Clasificacion">
+      <Column Name="clasificacionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="clasificacion_descripcion" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="categoriaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Categoria_Clasificacion" Member="Categoria" ThisKey="categoriaId" OtherKey="categoriaId" Type="Categoria" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Colonia" Member="Colonia">
+    <Type Name="Colonia">
+      <Column Name="coloniaId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="colonia_descripcion" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="municipioId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sucursalId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Municipio_Colonia" Member="Municipio" ThisKey="municipioId" OtherKey="municipioId" Type="Municipio" IsForeignKey="true" />
+      <Association Name="Sucursal_Colonia" Member="Sucursal" ThisKey="sucursalId" OtherKey="sucursalId" Type="Sucursal" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Estado" Member="Estado">
+    <Type Name="Estado">
+      <Column Name="estadoId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="estado_descripcion" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="paisId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Estado_Municipio" Member="Municipio" ThisKey="estadoId" OtherKey="estadoId" Type="Municipio" />
+      <Association Name="Estado_Sucursal" Member="Sucursal" ThisKey="estadoId" OtherKey="estadoId" Type="Sucursal" />
+      <Association Name="Pais_Estado" Member="Pais" ThisKey="paisId" OtherKey="paisId" Type="Pais" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Falla" Member="Falla">
+    <Type Name="Falla">
+      <Column Name="fallaId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="falla_descripcion" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Marca" Member="Marca">
+    <Type Name="Marca">
+      <Column Name="marcaId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="marca_descripcion" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Municipio" Member="Municipio">
+    <Type Name="Municipio">
+      <Column Name="municipioId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="municipio_descripcion" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="estadoId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Municipio_Colonia" Member="Colonia" ThisKey="municipioId" OtherKey="municipioId" Type="Colonia" />
+      <Association Name="Estado_Municipio" Member="Estado" ThisKey="estadoId" OtherKey="estadoId" Type="Estado" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Origen" Member="Origen">
+    <Type Name="Origen">
+      <Column Name="origenId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="origen_descripcion" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Pais" Member="Pais">
+    <Type Name="Pais">
+      <Column Name="paisId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="pais_descripcion" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Association Name="Pais_Estado" Member="Estado" ThisKey="paisId" OtherKey="paisId" Type="Estado" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Presentacion" Member="Presentacion">
+    <Type Name="Presentacion">
+      <Column Name="presentacionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="presentacion_descripcion" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Association Name="Presentacion_Producto" Member="Producto" ThisKey="presentacionId" OtherKey="presentacionId" Type="Producto" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Producto" Member="Producto">
+    <Type Name="Producto">
+      <Column Name="productoId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="producto_descripcion" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="presentacionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Presentacion_Producto" Member="Presentacion" ThisKey="presentacionId" OtherKey="presentacionId" Type="Presentacion" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rol" Member="Rol">
+    <Type Name="Rol">
+      <Column Name="rolId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="rol_descripcion" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Association Name="Rol_UsuarioRol" Member="UsuarioRol" ThisKey="rolId" OtherKey="rolId" Type="UsuarioRol" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Ruta" Member="Ruta">
+    <Type Name="Ruta">
+      <Column Name="rutaId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ruta_descripcion" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sucursal" Member="Sucursal">
+    <Type Name="Sucursal">
+      <Column Name="sucursalId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sucursal_descripcion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="estadoId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Sucursal_UsuarioSucursal" Member="UsuarioSucursal" ThisKey="sucursalId" OtherKey="sucursalId" Type="UsuarioSucursal" />
+      <Association Name="Sucursal_Colonia" Member="Colonia" ThisKey="sucursalId" OtherKey="sucursalId" Type="Colonia" />
+      <Association Name="Estado_Sucursal" Member="Estado" ThisKey="estadoId" OtherKey="estadoId" Type="Estado" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Usuario" Member="Usuario">
+    <Type Name="Usuario">
+      <Column Name="usuarioId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="usuario" Member="usuario1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="usuario_nombre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="usuario_apellido" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="usuario_email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Usuario_UsuarioSucursal" Member="UsuarioSucursal" ThisKey="usuarioId" OtherKey="usuarioId" Type="UsuarioSucursal" />
+      <Association Name="Usuario_UsuarioRol" Member="UsuarioRol" ThisKey="usuarioId" OtherKey="usuarioId" Type="UsuarioRol" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UsuarioRol" Member="UsuarioRol">
+    <Type Name="UsuarioRol">
+      <Column Name="usuariorolId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="usuarioId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="rolId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Rol_UsuarioRol" Member="Rol" ThisKey="rolId" OtherKey="rolId" Type="Rol" IsForeignKey="true" />
+      <Association Name="Usuario_UsuarioRol" Member="Usuario" ThisKey="usuarioId" OtherKey="usuarioId" Type="Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
